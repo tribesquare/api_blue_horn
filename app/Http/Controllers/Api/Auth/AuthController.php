@@ -24,7 +24,10 @@ class AuthController extends ApiController
       $payload = (object) $request->validated();
       $user = $this->userService->loginByEmailCode($payload);
 
-      return $this->ok('User Logged In Successfully', new UserResource($user));
+      return $this->ok(
+        'User Logged In Successfully',
+        new UserResource($user)
+      );
     } catch (Throwable $e) {
       return $this->error($e->getMessage());
     }
