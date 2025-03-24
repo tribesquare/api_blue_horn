@@ -10,7 +10,7 @@ use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Auth\LoginRequest;
-use App\Http\Controllers\API\ApiController;
+use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\Auth\RegistrationRequest;
 use App\Http\Requests\Auth\ChangePasswordRequest;
 
