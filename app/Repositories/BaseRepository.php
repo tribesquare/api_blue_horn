@@ -127,7 +127,7 @@ abstract class BaseRepository
   {
     return $this->setFilters($filters)
       ->with($with)
-      ->get();
+      ->paginate(20);
   }
 
   public function findAgentsOnly(?int $id = null): Collection

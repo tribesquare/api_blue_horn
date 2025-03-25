@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Str;
 use App\Http\Filters\QueryFilter;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,6 +11,7 @@ abstract class BaseService
   public function __construct(protected $repository) {}
   public function create(array $data): Model
   {
+    $data['slug'] = Str::slug($data['name'], '_');
     return $this->repository->create($data);
   }
 
@@ -23,6 +25,7 @@ abstract class BaseService
    */
   public function fetchAll(QueryFilter $filter, array $with = [])
   {
+    // dd($filter);
     return $this->repository->getAllWithFilters($filter, $with);
   }
 
