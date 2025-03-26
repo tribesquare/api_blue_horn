@@ -25,6 +25,11 @@ class Listing extends Model implements Filterable
     return $this->belongsTo(Category::class, 'category_id');
   }
 
+  public function payments()
+  {
+    return $this->hasMany(Payment::class);
+  }
+
   protected $casts = [
     'info' => 'object',
   ];

@@ -2,7 +2,7 @@
 
 return [
 
-    /*
+  /*
     |--------------------------------------------------------------------------
     | Third Party Services
     |--------------------------------------------------------------------------
@@ -14,25 +14,33 @@ return [
     |
     */
 
-    'postmark' => [
-        'token' => env('POSTMARK_TOKEN'),
-    ],
+  'postmark' => [
+    'token' => env('POSTMARK_TOKEN'),
+  ],
 
-    'ses' => [
-        'key' => env('AWS_ACCESS_KEY_ID'),
-        'secret' => env('AWS_SECRET_ACCESS_KEY'),
-        'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
-    ],
+  'ses' => [
+    'key' => env('AWS_ACCESS_KEY_ID'),
+    'secret' => env('AWS_SECRET_ACCESS_KEY'),
+    'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
+  ],
 
-    'resend' => [
-        'key' => env('RESEND_KEY'),
-    ],
+  'resend' => [
+    'key' => env('RESEND_KEY'),
+  ],
 
-    'slack' => [
-        'notifications' => [
-            'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),
-            'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
-        ],
+  'slack' => [
+    'notifications' => [
+      'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),
+      'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
     ],
-
+  ],
+  'paystack' => [
+    'public_key' => env('PAYSTACK_PUBLIC_KEY'),
+    'secret_key' => env('PAYSTACK_SECRET_KEY'),
+    'url' => env('PAYSTACK_PAYMENT_URL'),
+  ],
+  'platform' => [
+    'email' => env('PLATFORM_OWNER_EMAIL'),
+    'name' => env('PLATFORM_OWNER_NAME'),
+  ],
 ];

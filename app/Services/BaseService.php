@@ -25,12 +25,16 @@ abstract class BaseService
    */
   public function fetchAll(QueryFilter $filter, array $with = [])
   {
-    // dd($filter);
     return $this->repository->getAllWithFilters($filter, $with);
   }
 
   public function paginate($number)
   {
     return $this->repository->paginate($number);
+  }
+
+  public function find($payload)
+  {
+    return $this->repository->find($payload);
   }
 }

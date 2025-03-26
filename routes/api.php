@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ListingController;
+use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\Auth\OTPController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\Auth\AuthController;
@@ -28,4 +29,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
   Route::post('/verify-otp', [OTPController::class, 'verify'])->name('otp.verify');
   Route::get('resend-otp', [OTPController::class, 'resend'])->name('otp.verify');
+
+  Route::post('checkout', [PaymentController::class, 'checkout']);
+  Route::get('verify-payment', [PaymentController::class, 'verify']);
 });
