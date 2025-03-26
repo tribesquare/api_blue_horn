@@ -63,4 +63,23 @@ abstract class QueryFilter
   {
     return $this->request;
   }
+
+  public function has(string $key): bool
+  {
+    return request()->has($key);
+  }
+
+  // Existing methods and properties
+
+  /**
+   * Set a parameter for filtering.
+   *
+   * @param string $key
+   * @param mixed $value
+   * @return void
+   */
+  public function setParameter(string $key, $value): void
+  {
+    $this->builder->where($key, $value);
+  }
 }

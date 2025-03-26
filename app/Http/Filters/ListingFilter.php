@@ -2,6 +2,8 @@
 
 namespace App\Http\Filters;
 
+use App\Models\Category;
+
 class ListingFilter extends QueryFilter
 {
 
@@ -9,7 +11,8 @@ class ListingFilter extends QueryFilter
 
   public function category($value)
   {
-    return $this->builder->where('category_id', $value);
+    $category = Category::where('slug', $value)->first();
+    return $this->builder->where('category_id', $category->id);
   }
 
   public function name($value)

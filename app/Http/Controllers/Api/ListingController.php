@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Api;
 
 use Throwable;
 use App\Models\Listing;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Services\ListingService;
 use App\Http\Filters\QueryFilter;
-use App\Http\Controllers\Api\ApiController;
 use App\Http\Filters\ListingFilter;
+use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\Listing\CreateListingRequest;
 
 class ListingController extends ApiController
