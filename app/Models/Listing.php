@@ -10,14 +10,17 @@ class Listing extends Model implements Filterable
 {
   use FilterableScope;
   protected $fillable = [
+    'uuid',
     'name',
     'slug',
     'category_id',
     'description',
     'address',
     'rating',
-    'info',
-    'image_url',
+    'rooms',
+    'image_urls',
+    'facilities',
+    'available_from',
   ];
 
   public function category()
@@ -31,6 +34,8 @@ class Listing extends Model implements Filterable
   }
 
   protected $casts = [
-    'info' => 'object',
+    'rooms' => 'object',
+    'image_urls' => 'object',
+    'facilities' => 'object',
   ];
 }

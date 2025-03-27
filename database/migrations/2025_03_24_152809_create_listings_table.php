@@ -13,14 +13,17 @@ return new class extends Migration
     {
         Schema::create('listings', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->unique();
             $table->string('name');
             $table->string('slug')->unique();
             $table->foreignId('category_id')->constrained();
             $table->text('description');
             $table->string('address');
             $table->string('rating')->default(0);
-            $table->json('info');
-            $table->string('image_url')->nullable();
+            $table->json('rooms');
+            $table->json('image_urls')->nullable();
+            $table->json('facilities')->nullable();
+            $table->date('available_from');
             $table->timestamps();
             $table->softDeletes();
         });

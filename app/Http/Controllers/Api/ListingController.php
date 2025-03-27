@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Resources\ListingResource;
 use Throwable;
 use App\Models\Listing;
 use App\Models\Category;
@@ -22,10 +23,17 @@ class ListingController extends ApiController
   public function index(ListingFilter $filter)
   {
     try {
-      return $this->ok(
-        'listings fetched successfully',
-        $this->listingService->fetchAll($filter)
-      );
+      $listings = $this->listingService->fetchAll($filter);
+
+      return $this->ok('Listings fetched successfully', [
+        'data' => ListingResource::collection($listings->items()), // ✅ Transform items
+        'pagination' => [
+          'total' => $listings->total(),
+          'per_page' => $listings->perPage(),
+          'current_page' => $listings->currentPage(),
+          'last_page' => $listings->lastPage(),
+        ],
+      ]);
     } catch (Throwable $th) {
       return $this->error($th->getMessage());
     }
@@ -37,7 +45,10 @@ class ListingController extends ApiController
   public function store(CreateListingRequest $request)
   {
     try {
-      return $this->ok('listing created successfully', $this->listingService->create($request->validated()));
+      return $this->ok(
+        'listing created successfully',
+        new ListingResource($this->listingService->createListing($request->validated()))
+      );
     } catch (Throwable $th) {
       return $this->error($th->getMessage());
     }
@@ -46,9 +57,16 @@ class ListingController extends ApiController
   /**
    * Display the specified resource.
    */
-  public function show(Listing $listing)
+  public function show(Request $request)
   {
-    //
+    try {
+      return $this->ok(
+        'listing fetched successfully',
+        new ListingResource($this->listingService->fetchListing($request->listing))
+      );
+    } catch (Throwable $th) {
+      return $this->error($th->getMessage());
+    }
   }
 
   /**

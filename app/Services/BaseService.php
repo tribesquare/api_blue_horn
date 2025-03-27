@@ -11,7 +11,6 @@ abstract class BaseService
   public function __construct(protected $repository) {}
   public function create(array $data): Model
   {
-    $data['slug'] = Str::slug($data['name'], '_');
     return $this->repository->create($data);
   }
 

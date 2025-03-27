@@ -27,8 +27,10 @@ class CreateListingRequest extends FormRequest
       'description' => 'nullable',
       'address' => 'required',
       'rating' => 'required',
-      'info' => 'required',
-      'image_url' => 'nullable',
+      'rooms' => 'required',
+      'image_urls' => 'nullable',
+      'facilities' => 'nullable',
+      'available_from' => 'required',
     ];
   }
 }
