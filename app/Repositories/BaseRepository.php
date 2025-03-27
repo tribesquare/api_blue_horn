@@ -82,7 +82,7 @@ abstract class BaseRepository
       ->get();
   }
 
-  public function where(string $column, string $value): Model
+  public function where(string $column, string $value): Model|null
   {
     return $this->model->where($column, $value)->first();
   }

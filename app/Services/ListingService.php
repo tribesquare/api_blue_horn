@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Exception;
 use Illuminate\Support\Str;
 use App\Repositories\ListingRepository;
 use Illuminate\Database\Eloquent\Model;
@@ -21,6 +22,11 @@ class ListingService extends BaseService
 
   public function fetchListing($listing)
   {
-    return $this->repository->where('uuid', $listing);
+    // dd($listing);
+    $listing = $this->repository->where('uuid', $listing);
+    if ($listing == null) {
+      throw new Exception('Listing not found');
+    }
+    return $listing;
   }
 }
