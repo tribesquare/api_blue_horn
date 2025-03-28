@@ -84,7 +84,9 @@ class UserService extends BaseService
     }
 
     $user = $this->getUserByIdentifier($payload->identifier);
-
+    if ($user->email_verified_at === null) {
+      throw new Exception('User is not verified');
+    }
     $user->token = $user->createToken(
       User::TOKEN_NAME
     )->plainTextToken;
