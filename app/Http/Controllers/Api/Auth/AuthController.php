@@ -38,7 +38,10 @@ class AuthController extends ApiController
     try {
       $user = $this->userService->register($request->validated());
 
-      return $this->ok('User Created Successfully', new UserResource($user));
+      return $this->ok(
+        'User Created Successfully',
+        [$user->token, 'redirect user to verify OTP']
+      );
     } catch (Throwable $e) {
       return $this->error($e->getMessage());
     }
