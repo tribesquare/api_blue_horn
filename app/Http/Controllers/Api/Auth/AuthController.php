@@ -18,12 +18,18 @@ class AuthController extends ApiController
 {
   public function __construct(protected UserService $userService) {}
 
-  public function login(LoginRequest $request): JsonResponse
+  public function login(LoginRequest $request): JsonResponse|array
   {
     try {
       $payload = (object) $request->validated();
       $user = $this->userService->loginByEmailCode($payload);
 
+      if (is_array($user)) {
+        return $this->ok(
+          $user['message'],
+          ['token' => $user['token']]
+        );
+      }
       return $this->ok(
         'User Logged In Successfully',
         new UserResource($user)
@@ -40,7 +46,7 @@ class AuthController extends ApiController
 
       return $this->ok(
         'User Created Successfully',
-        [$user->token, 'redirect user to verify OTP']
+        ['token' => $user->token, 'redirect user to verify OTP using the verify otp endpoint']
       );
     } catch (Throwable $e) {
       return $this->error($e->getMessage());

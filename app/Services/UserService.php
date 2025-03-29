@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Mail\SendOTPEmail;
 use Exception;
 use Throwable;
 use App\Models\User;
@@ -77,7 +78,7 @@ class UserService extends BaseService
   /**
    * @throws Exception
    */
-  public function loginByEmailCode($payload): Model
+  public function loginByEmailCode($payload): Model|array
   {
     if (!$this->cantAttemptAuth($payload)) {
       throw new Exception('Records provided does not match with our record.');
@@ -85,7 +86,19 @@ class UserService extends BaseService
 
     $user = $this->getUserByIdentifier($payload->identifier);
     if ($user->email_verified_at === null) {
-      throw new Exception('User is not verified');
+      $this->OTPService->sendOTP([
+        'id' => $user->id,
+        'model' => User::TAG,
+        'email' => $user->email,
+      ]);
+      $user->token = $user->createToken(
+        User::TOKEN_NAME
+      )->plainTextToken;
+
+      return [
+        'token' => $user->token,
+        'message' => 'User is not verified, please verify first. Using the Verify OTP endpoint.'
+      ];
     }
     $user->token = $user->createToken(
       User::TOKEN_NAME
