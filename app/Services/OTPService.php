@@ -27,7 +27,7 @@ class OTPService extends BaseService
     {
         $user = Auth::user();
 
-        if ($user->phone_verified_at || $user->email_verified_at) {
+        if ($user->email_verified_at) {
             throw new PhoneAlreadyVerifiedException();
         }
 
@@ -86,7 +86,6 @@ class OTPService extends BaseService
 
         $this->userRepository->update(Auth::user()->id, [
             'email_verified_at' => now(),
-            'phone_verified_at' => now(),
         ]);
     }
 }

@@ -2,10 +2,11 @@
 
 namespace App\Services;
 
-use App\Mail\SendOTPEmail;
 use Exception;
 use Throwable;
 use App\Models\User;
+use App\Mail\SendOTPEmail;
+use Illuminate\Support\Str;
 use App\Services\OTPService;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\UserRepository;
@@ -30,6 +31,7 @@ class UserService extends BaseService
         'email' => $payload['email'],
         'password' => Hash::make($payload['password']),
         'name' => $payload['name'],
+        'uuid' => Str::uuid()
       ]);
 
       //move this to a job
